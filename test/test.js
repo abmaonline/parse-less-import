@@ -3,13 +3,6 @@
 require('should');
 const parse = require('../index');
 
-console.log(parse(`
-@import '../a';
-@import './b.less';
-@import (multiple) './c.less';
-@import (multiple, reference) './d.less';
-`));
-
 describe('parse-less-import', () => {
   it(`should parse '@import "filepath";'`, () => {
     parse(`
