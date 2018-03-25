@@ -49,4 +49,41 @@ describe('parse-less-import', () => {
       keywords: ['multiple', 'reference']
     }]);
   });
+  it(`should parse '@import-once "filepath";'`, () => {
+    parse(`
+      .abc {}
+      @import-once "../a.less";
+      .cde {}
+      @import-once "../b";
+    `).should.eql([{
+      path: '../a.less',
+      keywords: ['once']
+    }, {
+      path: '../b',
+      keywords: ['once']
+    }]);
+    parse(`
+      .abc {}
+    `).should.eql([]);
+  });
+  it(`should parse '@import-once (keyword) "filepath";'`, () => {
+    parse(`
+      .abc {}
+      @import-once (optional) "../a.less";
+      .cde {}
+      @import-once (multiple, reference) "../b";
+    `).should.eql([{
+      path: '../a.less',
+      keywords: ['once', 'optional']
+    }, {
+      path: '../b',
+      keywords: ['once', 'multiple', 'reference']
+    }]);
+  });
+  it(`should return empty array if empty content`, () => {
+    parse(``).should.eql([]);
+  });
+  it(`should return empty array if no content`, () => {
+    parse().should.eql([]);
+  });
 });
