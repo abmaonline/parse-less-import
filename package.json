@@ -1,6 +1,6 @@
 {
   "name": "@abmaonline/parse-less-import",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Parse import from less file",
   "main": "index.js",
   "scripts": {
